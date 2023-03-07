@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Interroger mon API{% endblock %}
+
+{% block body %}
+    <h1>Liste des X-Men</h1>
+    <ul id="maListe"></ul>
+    <br><hr><br>
+    <a href="/api">Voir la documentation de l'API</a>
+    <script>
+        fetch('http://127.0.0.1:8000/api/x_mens.json')
+            .then((reponse) => reponse.json())
+            .then((json) => {
+                let monUl = document.getElementById("maListe");
+                for (const uneXMen of json) {
+                    let monLi = document.createElement('li');
+                    monLi.innerText = uneXMen.pseudo;
+                    monUl.appendChild(monLi);
+                }
+            })
+    </script>
+{% endblock %}
